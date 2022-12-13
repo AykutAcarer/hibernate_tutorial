@@ -9,6 +9,14 @@ import hibernate.tutorial.demo.entity.StudentNotes;
 
 public class MainAppp {
 
+	public static void getStudentDetails(Session session, int studentNotesId)
+	{
+		StudentNotes theStudentNotes = session.get(StudentNotes.class, studentNotesId);
+		
+		System.out.println("Student Notes: "+theStudentNotes);
+		System.out.println("\n\n");
+		System.out.println("Student: "+ theStudentNotes.getStudent());
+	}
 	
 	public static void main(String[] args) {
 		
@@ -29,11 +37,7 @@ public class MainAppp {
 			
 			//get Student and Student Notes from StudentNotes
 			int studentNotesId = 4;
-			StudentNotes theStudentNotes = session.get(StudentNotes.class, studentNotesId);
-			
-			System.out.println("Student Notes: "+theStudentNotes);
-			System.out.println("\n\n");
-			System.out.println("Student: "+ theStudentNotes.getStudent());
+			getStudentDetails(session, studentNotesId);
 			
 			
 			//commit transaction
