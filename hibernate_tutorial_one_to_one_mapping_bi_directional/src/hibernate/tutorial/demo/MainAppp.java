@@ -9,7 +9,7 @@ import hibernate.tutorial.demo.entity.StudentNotes;
 
 public class MainAppp {
 
-	public static void getStudentDetails(Session session, int studentNotesId)
+	public static void getStudentByStudentNotesId(Session session, int studentNotesId)
 	{
 		StudentNotes theStudentNotes = session.get(StudentNotes.class, studentNotesId);
 		
@@ -18,6 +18,25 @@ public class MainAppp {
 		System.out.println("Student: "+ theStudentNotes.getStudent());
 	}
 	
+	public static void deleteStudentByStudentNotesId(Session session, int studentNotesId)
+	{
+		StudentNotes theStudentNotes = session.get(StudentNotes.class, studentNotesId);
+		
+		session.delete(theStudentNotes);
+		
+		System.out.println("\n\n deleted Successfuly");
+	}
+	
+	public static void deleteJustStudentNotes(Session session, int studentNotesId)
+	{
+		StudentNotes theStudentNotes = session.get(StudentNotes.class, studentNotesId);
+		
+		theStudentNotes.getStudent().setStudentNotes(null);
+		
+		session.delete(theStudentNotes);
+		
+		System.out.println("deleted Successfully");
+	}
 	public static void main(String[] args) {
 		
 
@@ -34,11 +53,17 @@ public class MainAppp {
 		{
 			//start a transaction
 			session.beginTransaction();
+//			
+//			//get Student and Student Notes from StudentNotes
+//			int studentNotesId = 4;
+//			getStudentByStudentNotesId(session, studentNotesId);
+//			
+//			//delete Student and Students Notes from studentNotes Id
+//			deleteStudentByStudentNotesId(session, studentNotesId);
 			
-			//get Student and Student Notes from StudentNotes
-			int studentNotesId = 4;
-			getStudentDetails(session, studentNotesId);
-			
+			//delete just Student Notes 
+			int studentNotesId = 6;
+			deleteJustStudentNotes(session, studentNotesId);
 			
 			//commit transaction
 			session.getTransaction().commit();

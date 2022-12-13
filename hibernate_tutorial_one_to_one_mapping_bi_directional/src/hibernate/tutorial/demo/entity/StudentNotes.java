@@ -39,7 +39,8 @@ public class StudentNotes {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updated_at;
 
-	@OneToOne(mappedBy="studentNotes", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy="studentNotes", 
+			cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private Student student;
 	
 	public StudentNotes() 
